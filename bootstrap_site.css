@@ -1,0 +1,102 @@
+
+body {
+  min-height: 100vh;
+  background-image: 
+    repeating-linear-gradient(35deg, 
+      rgba(231,131,177, 0) 0,
+      #40ccde 33vmax,
+      #40ccde calc(33vmax - 5px),
+      #40ccde 33vmax
+    ),
+    repeating-linear-gradient(262deg, 
+      rgba(231,131,177, 0) 0,
+      #9959cf 65vmax,
+      #9959cf calc(65vmax - 5px),
+      #9959cf 65vmax
+    );
+
+  background-color: #e783b1;
+  background-size: 100% 100%;
+}
+
+.jumbotron {
+  background-color: #ffffff;
+}
+
+.mm_header h1 {
+  transition: all 0.2s;
+  font-size: 8vmin;
+}
+
+.mm_header h1:hover {
+  -webkit-transform: scale(1.3) rotateX(-20deg) rotateY(10deg);
+  transform: scale(1.3) rotateX(-20deg) rotateY(10deg);
+}
+
+.mm_header h1:hover span:nth-child(even) {
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+}
+
+.mm_header h1:hover span {
+  display: inline-block;
+  -webkit-animation-name: wiggle;
+  animation-name: wiggle;
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes wiggle {
+  from {
+    -webkit-transform: translate(0, 0px) rotate(-12deg);
+            transform: translate(0, 0px) rotate(-12deg);
+    text-shadow: 10px 10px 3px rgba(0,0,0,0.1);
+  }
+  65% {
+    -webkit-transform: translate(0, 15px) rotate(12deg) scale(1.3);
+            transform: translate(0, 15px) rotate(12deg) scale(1.3);
+    text-shadow: -10px -10px 3px rgba(0,0,0,0.1);
+  }
+  to {
+    -webkit-transform: translate(0, 0px) rotate(-12deg);
+            transform: translate(0, 0px) rotate(-12deg);
+    text-shadow: 10px 10px 3px rgba(0,0,0,0.1);
+  }
+}
+@keyframes wiggle {
+  from {
+    -webkit-transform: translate(0, 0px) rotate(-12deg);
+            transform: translate(0, 0px) rotate(-12deg);
+    text-shadow: 10px 10px 3px rgba(0,0,0,0.1);
+  }
+  65% {
+    -webkit-transform: translate(0, 15px) rotate(12deg) scale(1.3);
+            transform: translate(0, 15px) rotate(12deg) scale(1.3);
+    text-shadow: -10px -10px 3px rgba(0,0,0,0.1);
+  }
+  to {
+    -webkit-transform: translate(0, 0px) rotate(-12deg);
+            transform: translate(0, 0px) rotate(-12deg);
+    text-shadow: 10px 10px 3px rgba(0,0,0,0.1);
+  }
+}
+
+#profile-img {
+    width: 400px;
+    max-width: 60%;
+    height: auto;
+    border-radius: 50%;
+    margin: 0 25px 0 0;
+}
+
+#portfolio {
+   background-color: #e783b1;
+}
+
+h3 {
+    font-family: 'Comic Sans MS';
+}
