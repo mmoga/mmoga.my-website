@@ -138,28 +138,28 @@ hr:after {  /* Not really supposed to work, but does */
     margin: 0 25px 0 0;
 }
 
-#portfolio {
+.content-styles {
    background-color: #ffffff;
    border-radius: 5px;
 }
 
-#portfolio h2 {
+.content-styles h2 {
   font-size: 6vmin;
   color: #020202;
   text-shadow: #858585 2px 2px 4px;
   margin-bottom: 2rem;
 }
 
-#portfolio h4 {
+.content-styles h4 {
   letter-spacing: 5px;
   font-size: 2rem;;
 }
 
-#portfolio ul {
+.content-styles ul {
   list-style: none;
 }
 
-#portfolio ul li::before {
+.content-styles ul li::before {
   content: "•";
   color: #9959cf;
   display: inline-block;
@@ -167,7 +167,7 @@ hr:after {  /* Not really supposed to work, but does */
   margin-left: -1em;
 }
 
-#portfolio a {
+.content-styles a {
   background: -webkit-gradient(linear, left top, right top, from(#40ccde), to(#9959cf));
   background: linear-gradient(to right, #40ccde, #9959cf);
   -webkit-background-clip: text;
@@ -177,4 +177,13 @@ hr:after {  /* Not really supposed to work, but does */
   font-weight: 700;
   border-bottom: 1px solid #40ccde!important;
   padding-bottom: .05rem;
+}
+
+#canvas {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
 }

@@ -40,3 +40,4 @@ if (endstr == -1)
 window.onbeforeunload = function() {
     NewWindow('http://matthewmogavero.site','mypopup','640','480','center','front');
 };
+
