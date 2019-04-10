@@ -19,7 +19,7 @@ body {
   background-color: #e783b1;
   background-size: 100% 100%;
   font-family: 'EB Garamond', 'Times New Roman', Times, serif;
-  font-size: 3vmin;
+  font-size: 1.5rem;
   color: #020202;
 }
 
@@ -186,4 +186,15 @@ hr:after {  /* Not really supposed to work, but does */
   pointer-events: none;
   height: 100%;
   width: 100%;
+}
+
+.connect-li a {
+  border: none !important;
+  background: none;
+  padding: 0;
+}
+
+.li-logo {
+  width: 32px;
+  height: auto;
 }
