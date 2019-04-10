@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond|Oswald:400,700');
 
 body {
   min-height: 100vh;
@@ -17,6 +18,50 @@ body {
 
   background-color: #e783b1;
   background-size: 100% 100%;
+  font-family: 'EB Garamond', 'Times New Roman', Times, serif;
+  font-size: 3vmin;
+  color: #020202;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Oswald', Helvetica, sans-serif;
+}
+
+h2 {
+  letter-spacing: 3px;
+}
+
+a {
+  color: #ffffff;
+}
+
+.jumbotron p {
+  font-size: 5vmin;
+}
+
+ul li {
+  font-size: 1.5rem;
+}
+
+hr {
+  border: 0;
+  height: 0; /* Firefox... */
+  box-shadow: 0 0 10px 1px black;
+}
+hr:after {  /* Not really supposed to work, but does */
+  content: "\00a0";  /* Prevent margin collapse */
+}
+
+.navbar {
+  border-radius: 5px;
+  font-family: 'Oswald', Helvetica, sans-serif;
+  letter-spacing: 2px;
+}
+
+.navbar a {
+  font-size: 3vmin;
 }
 
 .jumbotron {
@@ -94,9 +139,42 @@ body {
 }
 
 #portfolio {
-   background-color: #e783b1;
+   background-color: #ffffff;
+   border-radius: 5px;
 }
 
-h3 {
-    font-family: 'Comic Sans MS';
+#portfolio h2 {
+  font-size: 6vmin;
+  color: #020202;
+  text-shadow: #858585 2px 2px 4px;
+  margin-bottom: 2rem;
+}
+
+#portfolio h4 {
+  letter-spacing: 5px;
+  font-size: 2rem;;
+}
+
+#portfolio ul {
+  list-style: none;
+}
+
+#portfolio ul li::before {
+  content: "•";
+  color: #9959cf;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+#portfolio a {
+  background: -webkit-gradient(linear, left top, right top, from(#40ccde), to(#9959cf));
+  background: linear-gradient(to right, #40ccde, #9959cf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  font-weight: 700;
+  border-bottom: 1px solid #40ccde!important;
+  padding-bottom: .05rem;
 }
