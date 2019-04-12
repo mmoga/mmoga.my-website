@@ -198,3 +198,32 @@ hr:after {  /* Not really supposed to work, but does */
   width: 32px;
   height: auto;
 }
+
+.publications h3 {
+  text-align: center;
+}
+
+.poem-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.poem-list .poem {
+  width: 32%;
+}
+
+@media (max-width: 600px) {
+  .poem-list {
+    display: block;
+  }
+  .poem-list .poem {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+}
+
+.publisher {
+  font-style: italic;
+  font-size: 2vmin;
+}
