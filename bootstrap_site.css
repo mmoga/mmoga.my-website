@@ -195,8 +195,11 @@ hr:after {  /* Not really supposed to work, but does */
 }
 
 .li-logo {
+  display: inline-block;
   width: 32px;
-  height: auto;
+  height: 32px;
+  vertical-align: baseline;
+  margin-left: 5px;
 }
 
 .publications h3 {
