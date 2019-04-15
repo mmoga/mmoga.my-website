@@ -224,6 +224,19 @@
       var scr = document.getElementsByTagName('script')[0];
       scr.parentNode.insertBefore(ss, scr);
     })();
+    if ("onhashchange" in window) {
+        window.onhashchange = function () {
+            _ss.push(['_trackPageView']);
+        }
+    } else {
+        var prevHash = window.location.hash;
+        window.setInterval(function () {
+            if (window.location.hash != prevHash) {
+                prevHash = window.location.hash;
+                _ss.push(['_trackPageView']);
+            }
+        }, 100);
+    }
   </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
