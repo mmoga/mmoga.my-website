@@ -61,7 +61,7 @@ hr:after {  /* Not really supposed to work, but does */
 }
 
 .navbar a {
-  font-size: 3vmin;
+  font-size: 24px;
 }
 
 .jumbotron {
