@@ -38,7 +38,7 @@ a {
 }
 
 .jumbotron p {
-  font-size: 5vmin;
+  font-size: 1.2em;
 }
 
 ul li {
@@ -66,6 +66,7 @@ hr:after {  /* Not really supposed to work, but does */
 
 .jumbotron {
   background-color: #ffffff;
+  background: url(/images/wavy-dots.png) repeat;
 }
 
 .mm_header h1 {
@@ -135,7 +136,6 @@ hr:after {  /* Not really supposed to work, but does */
     max-width: 60%;
     height: auto;
     border-radius: 50%;
-    margin: 0 25px 0 0;
 }
 
 .content-styles {
@@ -144,7 +144,7 @@ hr:after {  /* Not really supposed to work, but does */
 }
 
 .content-styles h2 {
-  font-size: 6vmin;
+  font-size: 1.5em;
   color: #020202;
   text-shadow: #858585 2px 2px 4px;
   margin-bottom: 2rem;
@@ -179,6 +179,10 @@ hr:after {  /* Not really supposed to work, but does */
   padding-bottom: .05rem;
 }
 
+#about-me .container {
+  background: url(/images/stacked_circles.png) repeat;
+}
+
 #canvas {
   display: block;
   position: absolute;
@@ -200,6 +204,14 @@ hr:after {  /* Not really supposed to work, but does */
   height: 32px;
   vertical-align: baseline;
   margin-left: 5px;
+}
+
+#dev-portfolio .container {
+  background: url(/images/wavy-dots.png) repeat;
+}
+
+#writing-portfolio .container {
+  background: url(/images/stacked_circles.png) repeat;
 }
 
 .publications h3 {
