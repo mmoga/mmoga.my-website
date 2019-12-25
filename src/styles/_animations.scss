@@ -1,0 +1,43 @@
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
+  }
+  @-ms-keyframes $animation-name {
+    @content;
+  }
+  @-o-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+@include keyframes(wiggle) {
+  from {
+    -webkit-transform: translate(0, 0px) rotate(-12deg);
+    transform: translate(0, 0px) rotate(-12deg);
+    text-shadow: 10px 10px 3px rgba(0, 0, 0, 0.1);
+  }
+  65% {
+    -webkit-transform: translate(0, 15px) rotate(12deg) scale(1.3);
+    transform: translate(0, 15px) rotate(12deg) scale(1.3);
+    text-shadow: -10px -10px 3px rgba(0, 0, 0, 0.1);
+  }
+  to {
+    -webkit-transform: translate(0, 0px) rotate(-12deg);
+    transform: translate(0, 0px) rotate(-12deg);
+    text-shadow: 10px 10px 3px rgba(0, 0, 0, 0.1);
+  }
+}
