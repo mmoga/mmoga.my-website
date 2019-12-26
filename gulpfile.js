@@ -1,24 +1,32 @@
-const autoprefixer = require('gulp-autoprefixer');
+const { src, dest, watch, series, parallel } = require('gulp');
+const autoprefixer = require('autoprefixer');
 const beeper = require('beeper');
-const browserSync = require('browser-sync');
+const browserSync = require('browser-sync').create();
 const cache = require('gulp-cache');
-const cleanCSS = require('gulp-clean-css');
+const postcss = require('gulp-postcss');
+const cssnano = require('cssnano');
 const gconcat = require('gulp-concat');
-const gulp = require('gulp');
 const gutil = require('gulp-util');
 const imagemin = require('gulp-imagemin');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const pug = require('gulp-pug');
+const replace = require('gulp-replace');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify-es').default;
 const babel = require('gulp-babel');
-// npm install gulp-uglify browser-sync gulp-plumber gulp-autoprefixer gulp-sass gulp-pug gulp-imagemin gulp-cache gulp-clean-css gulp-sourcemaps gulp-concat beeper gulp-util gulp-rename gulp-notify --save-dev
+
 const jsVendorFiles = []; // Holds the js vendor files to be concatenated
-const myJsFiles = ['src/js/*.js']; // Holds the js files to be concatenated
-const fs = require('fs');
+
+// File paths
+const files = {
+        pugPath: 'src/**/*.pug',
+        scssPath: 'src/styles/*.scss',
+        jsPath: 'src/js/**/*.js',
+        imgPath: 'src/img/**/*',
+};
 
 const onError = function(err) {
         // Custom error msg with beep sound and text color
@@ -30,17 +38,8 @@ const onError = function(err) {
         this.emit('end');
         gutil.log(gutil.colors.red(err));
 };
-
-function findKeyText(data, txt) {
-        for (let i = 0; i < data.length; i++) {
-                if (data[i].indexOf(txt) > -1) {
-                        return true;
-                }
-        }
-        return false;
-}
-gulp.task('styles', async function() {
-        gulp.src('src/styles/*.scss')
+function scssTask() {
+        return src(files.scssPath)
                 .pipe(
                         plumber({
                                 errorHandler: onError,
@@ -52,33 +51,31 @@ gulp.task('styles', async function() {
                                 indentedSyntax: false,
                         })
                 )
-                .pipe(
-                        autoprefixer({
-                                cascade: false,
-                        })
-                )
-                .pipe(cleanCSS())
+                .pipe(postcss([autoprefixer(), cssnano()]))
                 .pipe(sourcemaps.write())
                 .pipe(
                         rename({
                                 suffix: '.min',
                         })
                 )
-                .pipe(gulp.dest('dist/css'));
-});
-gulp.task('templates', async function() {
-        gulp.src('src/*.pug')
+                .pipe(dest('dist/css'))
+                .pipe(browserSync.stream());
+}
+const cbString = new Date().getTime();
+function pugTask() {
+        return src(files.pugPath)
                 .pipe(
                         plumber({
                                 errorHandler: onError,
                         })
                 )
+                .pipe(replace(/cb=\d+/g, `cb=${cbString}`))
                 .pipe(pug())
-                .pipe(gulp.dest('dist/'));
-});
-gulp.task('scripts', async function() {
-        return gulp
-                .src(myJsFiles.concat(jsVendorFiles))
+                .pipe(dest('dist/'))
+                .pipe(browserSync.stream());
+}
+function JSTask() {
+        return src(files.jsPath.concat(jsVendorFiles))
                 .pipe(
                         plumber({
                                 errorHandler: onError,
@@ -94,10 +91,10 @@ gulp.task('scripts', async function() {
                                 suffix: '.min',
                         })
                 )
-                .pipe(gulp.dest('dist/js'));
-});
-gulp.task('images', async function() {
-        gulp.src('src/img/**/*')
+                .pipe(dest('dist/js'));
+}
+function imgTask() {
+        return src(files.imgPath)
                 .pipe(
                         cache(
                                 imagemin({
@@ -107,51 +104,28 @@ gulp.task('images', async function() {
                                 })
                         )
                 )
-                .pipe(gulp.dest('dist/img/'));
-});
-// gulp.task('setup-src', async function() {
-//         const data = fs
-//                 .readFileSync('src/index.pug')
-//                 .toString()
-//                 .split('\n');
-//         if (data[data.length - 1] === '') {
-//                 data.pop();
-//         }
-//         if (data[data.length - 1].indexOf('script(src="js/bundle.min.js")') > -1) {
-//                 data.pop();
-//         }
-//         if (!findKeyText(data, 'bundle.min.js')) {
-//                 data.splice(data.length, 0, '    script(src="js/bundle.min.js")');
-//         }
-//         const text = data.join('\n');
-//         fs.writeFile('dist/index.pug', text, function(err) {
-//                 if (err) throw err;
-//         });
-// });
-// Cachebust
-// This needs to be part of the 'watch' task.
-// See NEW-gulpfile.js for reference.
-// const cbString = new Date().getTime();
-// function cacheBustTask() {
-//         return src(['src/index.html'])
-//                 .pipe(replace(/cb=\d+/g, `cb=${cbString}`))
-//                 .pipe(dest('.'));
-// }
-gulp.task('default', async function() {
+                .pipe(dest('dist/img/'));
+}
+async function defaultTask() {
         console.log("Use 'gulp setup' command to initialize the project files");
-});
-gulp.task('setup', gulp.series('styles', 'templates', 'scripts', 'images'));
-gulp.task('watch', function() {
-        gulp.watch('styles/**/*', gulp.series('styles'));
-        gulp.watch(['templates/**/*', './*.pug'], gulp.series('templates'));
-        gulp.watch('js/*.js', gulp.series('scripts'));
-        gulp.watch('img/**/*', gulp.series('images'));
+}
+
+function watchTask() {
         // init server
         browserSync.init({
                 server: {
                         baseDir: 'dist/',
                         index: '/index.html',
+                        // reloadDelay: 1000,
                 },
         });
-        gulp.watch(['dist/**'], browserSync.reload);
-});
+        watch(files.scssPath, series(scssTask));
+        watch(files.jsPath, series(JSTask));
+        watch(files.pugPath, series(pugTask));
+        watch(files.imgPath, series(imgTask));
+        watch(['dist/*.html', 'dist/css/*.css', 'dist/js/*.js']).on('change', browserSync.reload);
+}
+
+exports.watch = series(parallel(scssTask, JSTask, imgTask), pugTask, watchTask);
+exports.build = series(parallel(imgTask, scssTask, JSTask), pugTask);
+exports.default = defaultTask;
