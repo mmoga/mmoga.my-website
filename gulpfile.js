@@ -128,6 +128,15 @@ gulp.task('images', async function() {
 //                 if (err) throw err;
 //         });
 // });
+// Cachebust
+// This needs to be part of the 'watch' task.
+// See NEW-gulpfile.js for reference.
+// const cbString = new Date().getTime();
+// function cacheBustTask() {
+//         return src(['src/index.html'])
+//                 .pipe(replace(/cb=\d+/g, `cb=${cbString}`))
+//                 .pipe(dest('.'));
+// }
 gulp.task('default', async function() {
         console.log("Use 'gulp setup' command to initialize the project files");
 });

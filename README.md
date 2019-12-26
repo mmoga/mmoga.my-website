@@ -1,5 +1,4 @@
 #TODO
 
-- set up gulp tasks (series, not functions)
+- set up gulp and update tasks to use functions
 - create GH action to build and publish site
-- move to private repo at some point
