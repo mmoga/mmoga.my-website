@@ -56,11 +56,12 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: dist
+          path: ./
 
       - name: Add /dist files to parent
         run: |
           ls -a
-          mv ~/dist/* ~/
+          # mv ~/dist/* ~/
           git commit -m "Files added" -a
 
       - name: Push to master
