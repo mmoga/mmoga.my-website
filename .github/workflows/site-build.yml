@@ -44,16 +44,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v1
-        with:
-          name: dist
-
       - name: Checkout and update master branch
         run: |
           git checkout github-action-setup-master
           git fetch
           git pull
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
 
       - name: Add /dist files to parent
         run: |
