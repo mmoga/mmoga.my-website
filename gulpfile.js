@@ -107,7 +107,7 @@ function imgTask() {
                 .pipe(dest('dist/img/'));
 }
 async function defaultTask() {
-        console.log("Use 'gulp setup' command to initialize the project files");
+        console.log("Use 'gulp watch' command to initialize the project files");
 }
 
 function watchTask() {
