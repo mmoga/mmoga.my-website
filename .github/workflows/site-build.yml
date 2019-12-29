@@ -61,8 +61,8 @@ jobs:
       - name: Add /dist files to parent
         run: |
           ls -a
-          # mv ~/dist/* ~/
-          git commit -m "Files added" -a
+          git add .
+          git commit -m "Fils added from $GITHUB_SHA" -a
 
       - name: Push to master
         run: git push
