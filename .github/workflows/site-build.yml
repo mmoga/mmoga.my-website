@@ -57,7 +57,7 @@ jobs:
 
     - name: Add /dist files to parent
       run: |
-        mv ~/dist/* ~/
+        mv /dist/* ~/
         git commit -m "Files added" -a
       
     - name: Push to master
