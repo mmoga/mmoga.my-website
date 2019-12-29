@@ -56,14 +56,11 @@ jobs:
           name: dist
           path: ./
 
-      - name: Add /dist files to parent
+      - name: Push to master
         run: |
           ls -a
           git config user.email "matt.moga@gmail.com"
           git config user.name "mmoga"
           git add .
           git commit -m "Files added from $GITHUB_SHA" -a
-
-      - name: Push to master
-        run: |
           git push
