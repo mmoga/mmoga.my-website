@@ -1,0 +1,65 @@
+name: Build site
+
+on:
+  push:
+    branches: 
+    - github-action-setup
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build
+      run: |
+        rm -rf dist
+        npm run build
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: dist
+        path: dist
+
+  publish:
+    needs: [build]
+    if: success()
+    runs-on: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: dist
+    
+    - name: Checkout and update master branch
+      run: |
+        git checkout github-action-setup-master
+        git fetch
+        git pull
+
+    - name: Add /dist files to parent
+      run: |
+        mv ~/dist/* ~/
+        git commit -m "Files added" -a
+      
+    - name: Push to master
+      run: git push 
+        
