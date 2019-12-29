@@ -57,6 +57,8 @@ jobs:
 
       - name: Add /dist files to parent
         run: |
+          git config --local user.email "matt.moga@gmail.com"
+          git config --local user.name "mmoga"
           # mv ~/dist/* ~/
           git commit -m "Files added" -a
 
