@@ -1,5 +1,4 @@
 #TODO
 
-- set up gulp tasks (series, not functions)
+- set time limit on confetti and make it go full site height
 - create GH action to build and publish site
-- move to private repo at some point
