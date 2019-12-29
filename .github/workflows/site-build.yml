@@ -47,8 +47,6 @@ jobs:
       - name: Checkout and update master branch
         run: |
           git checkout github-action-setup-master
-          git config --local user.email "matt.moga@gmail.com"
-          git config --local user.name "mmoga"
           git fetch
           git pull
 
@@ -65,4 +63,7 @@ jobs:
           git commit -m "Fils added from $GITHUB_SHA" -a
 
       - name: Push to master
-        run: git push
+        run: |
+          git config --local user.email "matt.moga@gmail.com"
+          git config --local user.name "mmoga"
+          git push
