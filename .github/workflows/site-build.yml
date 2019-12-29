@@ -47,6 +47,8 @@ jobs:
       - name: Checkout and update master branch
         run: |
           git checkout github-action-setup-master
+          git config --local user.email "matt.moga@gmail.com"
+          git config --local user.name "mmoga"
           git fetch
           git pull
 
@@ -58,9 +60,7 @@ jobs:
       - name: Add /dist files to parent
         run: |
           ls -a
-          git config --local user.email "matt.moga@gmail.com"
-          git config --local user.name "mmoga"
-          # mv ~/dist/* ~/
+          mv ~/dist/* ~/
           git commit -m "Files added" -a
 
       - name: Push to master
