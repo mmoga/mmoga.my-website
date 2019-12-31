@@ -42,12 +42,14 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GitHub_PAT }}
 
       - name: Checkout and update master branch
         run: |
           git checkout github-action-setup-master
-          git fetch
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           git pull
 
       - name: Download artifacts
