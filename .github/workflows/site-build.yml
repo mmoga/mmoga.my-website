@@ -48,7 +48,8 @@ jobs:
 
       - name: Checkout and update master branch
         run: |
-          git checkout github-action-setup-master
+          git fetch
+          git checkout remote/github-action-setup-master
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           git pull
 
