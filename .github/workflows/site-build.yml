@@ -3,7 +3,7 @@ name: Build site
 on:
   push:
     branches:
-      - github-action-setup
+      - build-master
 
 jobs:
   build:
@@ -49,8 +49,7 @@ jobs:
       - name: Checkout and update master branch
         run: |
           git fetch
-          git checkout -b github-action-setup-master --track origin/github-action-setup-master
-          # git checkout remote/github-action-setup-master
+          git checkout -b master--track origin/master
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           git pull
 
