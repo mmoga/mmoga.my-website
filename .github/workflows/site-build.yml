@@ -49,7 +49,7 @@ jobs:
       - name: Checkout and update master branch
         run: |
           git fetch
-          git checkout -b master--track origin/master
+          git checkout -b master --track origin/master
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           git pull
 
