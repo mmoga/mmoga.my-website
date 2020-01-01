@@ -1,0 +1,69 @@
+name: Build site
+
+on:
+  push:
+    branches:
+      - build-master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: |
+          rm -rf dist
+          npm run build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+  publish:
+    needs: [build]
+    if: success()
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GitHub_PAT }}
+
+      - name: Checkout and update master branch
+        run: |
+          git fetch
+          git checkout -b master--track origin/master
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          git pull
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+          path: ./
+
+      - name: Push to master
+        run: |
+          ls -a
+          git config user.email "matt.moga@gmail.com"
+          git config user.name "mmoga"
+          git add .
+          git commit -m "Files added from $GITHUB_SHA" -a
+          git push
