@@ -23,7 +23,7 @@ const jsVendorFiles = []; // Holds the js vendor files to be concatenated
 // File paths
 const files = {
         pugPath: 'src/**/*.pug',
-        scssPath: 'src/styles/*.scss',
+        scssPath: ['src/styles/*.scss', 'releases/**/main.scss'],
         jsPath: 'src/js/**/*.js',
         imgPath: 'src/img/**/*',
 };
